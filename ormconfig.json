@@ -1,0 +1,13 @@
+{
+  "type": "mysql",
+  "host": "database",
+  "port": 3306,
+  "username": "root",
+  "password": "rahasia",
+  "database": "express_pos",
+  "synchronize": true,
+  "logging": false,
+  "entities": ["src/modules/**/models/**/*.ts"],
+  "migrations": ["src/migration/**/*.ts"],
+  "subscribers": ["src/subscriber/**/*.ts"]
+}
