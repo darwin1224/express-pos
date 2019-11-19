@@ -19,7 +19,7 @@
       "@/*": ["./src/*"],
       "@typings/*": ["./typings/*"]
     },
-    "types": ["typeorm", "routing-controllers", "typedi", "dotenv", "node", "express"]
+    "types": ["typeorm", "routing-controllers", "typedi", "typeorm-typedi-extensions", "dotenv", "node", "express"]
   },
   "include": ["./src/**/*.ts"]
 }
