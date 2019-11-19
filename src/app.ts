@@ -1,4 +1,8 @@
+import compression from 'compression';
 import express, { Application } from 'express';
+import helmet from 'helmet';
+import morgan from 'morgan';
+import { createConnection } from 'typeorm';
 
 class App {
   /**
@@ -13,7 +17,7 @@ class App {
    *
    * @returns {string | undefined}
    */
-  private readonly port: string | undefined = process.env.NODE_PORT;
+  // private readonly port: string | undefined = process.env.NODE_PORT;
 
   /**
    * Constructor
@@ -21,7 +25,61 @@ class App {
    * @returns {void}
    */
   public constructor() {
-    this.listen();
+    this.init();
+    // this.listen();
+  }
+
+  /**
+   * Bootstrap the app
+   *
+   * @returns {Promise<void>}
+   */
+  private async init(): Promise<void> {
+    this.setUpHelmet();
+    this.setUpCompression();
+    await this.initDatabaseConnection();
+    this.setUpMorgan();
+  }
+
+  /**
+   * Set up helmet
+   *
+   * @returns {void}
+   */
+  private setUpHelmet(): void {
+    this.app.use(helmet());
+  }
+
+  /**
+   * Set up compression
+   *
+   * @returns {void}
+   */
+  private setUpCompression(): void {
+    this.app.use(compression());
+  }
+
+  /**
+   * Init database connection
+   *
+   * @returns {Promise<void>}
+   */
+  private async initDatabaseConnection(): Promise<void> {
+    try {
+      await createConnection();
+      console.log('Database is connected');
+    } catch (err) {
+      throw new Error(err.message);
+    }
+  }
+
+  /**
+   * Set up morgan
+   *
+   * @returns {void}
+   */
+  private setUpMorgan(): void {
+    this.app.use(morgan('dev'));
   }
 
   /**
@@ -29,11 +87,13 @@ class App {
    *
    * @returns {void}
    */
-  private listen(): void {
-    this.app.listen(this.port, (): void => {
-      console.log(`Server is running for ${process.env.NODE_ENV} at port ${this.port}`);
-    });
-  }
+  // private listen(): void {
+  //   if (!module.parent) {
+  //     this.app.listen(this.port, (): void => {
+  //       console.log(`Server is running for ${process.env.NODE_ENV} at port ${this.port}`);
+  //     });
+  //   }
+  // }
 }
 
 export default new App().app;
