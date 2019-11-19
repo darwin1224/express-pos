@@ -1,0 +1,21 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Node in Docker",
+      "type": "node",
+      "request": "attach",
+      "localRoot": "${workspaceFolder}",
+      "remoteRoot": "/var/www/html",
+      "protocol": "inspector",
+      "restart": true,
+      "sourceMaps": true,
+      "sourceMapPathOverrides": {
+        "/var/www/html/*": "${workspaceRoot}/*"
+      }
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "lib": ["esnext", "dom"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "outDir": "./dist",
+    "strict": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "pretty": true,
+    "noUnusedLocals": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "@typings/*": ["./typings/*"]
+    },
+    "types": ["typeorm", "routing-controllers", "typedi", "dotenv", "node", "express"]
+  },
+  "include": ["./src/**/*.ts"]
+}

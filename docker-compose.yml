@@ -1,0 +1,54 @@
+version: '3'
+
+services: 
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: backend
+    volumes: 
+      - ./:/var/www/html
+    ports: 
+      - ${NODE_PORT}:${NODE_PORT}
+      - ${NODE_INSPECT_PORT}:${NODE_INSPECT_PORT}
+    tty: true
+    restart: always
+    networks: 
+      - app
+
+  database:
+    image: mysql:5.7
+    container_name: database
+    environment: 
+      - MYSQL_ROOT_USER=${MYSQL_USER}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+    volumes: 
+      - app:/var/lib/mysql
+    ports: 
+      - ${MYSQL_PORT}:${MYSQL_PORT}
+    tty: true
+    restart: always
+    networks: 
+      - app
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment: 
+      - PMA_HOST=database
+      - PMA_PORT=${MYSQL_PORT}
+    ports: 
+      - ${PHPMYADMIN_PORT}:80
+    tty: true
+    restart: always
+    networks: 
+      - app
+
+volumes:
+  app:
+    driver: local
+
+networks:
+  app:
+    driver: bridge

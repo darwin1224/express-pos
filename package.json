@@ -1,0 +1,77 @@
+{
+  "name": "express-pos",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Express Point of Sale",
+  "main": "main.ts",
+  "scripts": {
+    "start": "node --inspect=0.0.0.0 -r ts-node/register -r tsconfig-paths/register ./src/app.ts",
+    "dev": "nodemon -L --exec node --inspect=0.0.0.0 -r ts-node/register -r tsconfig-paths/register ./src/app.ts",
+    "lint": "eslint --ext .ts,.js --ignore-path .eslintignore .",
+    "lint:fix": "eslint --ext .ts,.js --ignore-path .eslintignore --fix ."
+  },
+  "keywords": [
+    "point of sale",
+    "express",
+    "dependency injection",
+    "typescript",
+    "nodejs"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/darwin1224/express-pos.git"
+  },
+  "author": {
+    "name": "Darwin",
+    "email": "darwinblacks@gmail.com"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/darwin1224/express-pos/issues"
+  },
+  "homepage": "https://github.com/darwin1224/express-pos#readme",
+  "lint-staged": {
+    "*.{ts,js}": "eslint"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "class-transformer": "^0.2.3",
+    "class-validator": "^0.11.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "morgan": "^1.9.1",
+    "multer": "^1.4.2",
+    "mysql": "^2.17.1",
+    "reflect-metadata": "^0.1.13",
+    "routing-controllers": "^0.8.0",
+    "typedi": "^0.8.0",
+    "typeorm": "^0.2.20"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.17.1",
+    "@types/cors": "^2.8.6",
+    "@types/express": "^4.17.2",
+    "@types/morgan": "^1.7.37",
+    "@types/multer": "^1.3.10",
+    "@types/mysql": "^2.15.8",
+    "@types/node": "^12.12.9",
+    "@typescript-eslint/eslint-plugin": "^2.8.0",
+    "@typescript-eslint/parser": "^2.8.0",
+    "eslint": "^6.6.0",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "husky": "^3.1.0",
+    "lint-staged": "^9.4.3",
+    "nodemon": "^1.19.4",
+    "prettier": "^1.19.1",
+    "ts-node": "^8.5.2",
+    "tsconfig-paths": "^3.9.0",
+    "typescript": "^3.7.2"
+  }
+}
