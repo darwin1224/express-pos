@@ -11,7 +11,9 @@ export class SupplierService {
    * @param {Repository<SupplierModel>}
    * @returns {void}
    */
-  public constructor(@InjectRepository(SupplierModel) private readonly supplier: Repository<SupplierModel>) {}
+  public constructor(
+    @InjectRepository(SupplierModel) private readonly supplier: Repository<SupplierModel>,
+  ) {}
 
   /**
    * Get all data
