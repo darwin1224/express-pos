@@ -1,8 +1,8 @@
-FROM node:12.9.0-alpine
+FROM node:10.15.0
 
 WORKDIR /var/www/html
 
-RUN apk add --no-cache bash && yarn cache clean -f
+RUN yarn cache clean -f
 
 COPY . .
 
