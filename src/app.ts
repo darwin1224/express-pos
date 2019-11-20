@@ -13,20 +13,12 @@ class App {
   public readonly app: Application = express();
 
   /**
-   * Port number
-   *
-   * @returns {string | undefined}
-   */
-  // private readonly port: string | undefined = process.env.NODE_PORT;
-
-  /**
    * Constructor
    *
    * @returns {void}
    */
   public constructor() {
     this.init();
-    // this.listen();
   }
 
   /**
@@ -81,19 +73,6 @@ class App {
   private setUpMorgan(): void {
     this.app.use(morgan('dev'));
   }
-
-  /**
-   * Serve the app
-   *
-   * @returns {void}
-   */
-  // private listen(): void {
-  //   if (!module.parent) {
-  //     this.app.listen(this.port, (): void => {
-  //       console.log(`Server is running for ${process.env.NODE_ENV} at port ${this.port}`);
-  //     });
-  //   }
-  // }
 }
 
 export default new App().app;

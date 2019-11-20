@@ -8,6 +8,13 @@ import { useContainer as useTypeORMContainer } from 'typeorm';
 import { ErrorHandler } from '@/middlewares/ErrorHandler';
 
 /**
+ * Port number
+ *
+ * @type {string | number}
+ */
+const port: string | number = process.env.NODE_PORT || 3000;
+
+/**
  * Use routing controllers ioc container to resolve dependency inversion
  *
  * @returns {void}
@@ -22,7 +29,7 @@ useRoutingControllersContainer(Container);
 useTypeORMContainer(Container);
 
 /**
- * Serve the app
+ * Register application into routing controllers
  *
  * @returns {Application}
  */
@@ -33,4 +40,9 @@ useExpressServer<Application>(App, {
   defaultErrorHandler: false,
 });
 
-App.listen(3000, (): void => console.log('is running'));
+/**
+ * Serve the app
+ *
+ * @returns {void | undefined}
+ */
+App.listen(port, (): void => console.log(`Server is running for ${process.env.NODE_ENV} at port ${port}`));
