@@ -2,10 +2,14 @@ import 'reflect-metadata';
 import 'dotenv/config';
 import App from '@/app';
 import { Application } from 'express';
-import { useContainer as useRoutingControllersContainer, useExpressServer } from 'routing-controllers';
+import {
+  useContainer as useRoutingControllersContainer,
+  useExpressServer,
+} from 'routing-controllers';
 import { Container } from 'typedi';
 import { useContainer as useTypeORMContainer } from 'typeorm';
 import { ErrorHandler } from '@/middlewares/ErrorHandler';
+import { Authorize } from '@/middlewares/Authorize';
 
 /**
  * Port number
@@ -37,6 +41,7 @@ useExpressServer<Application>(App, {
   cors: true,
   controllers: [__dirname + '/modules/**/controllers/*.ts'],
   middlewares: [ErrorHandler],
+  authorizationChecker: Authorize.handle,
   defaultErrorHandler: false,
 });
 
@@ -45,4 +50,6 @@ useExpressServer<Application>(App, {
  *
  * @returns {void | undefined}
  */
-App.listen(port, (): void => console.log(`Server is running for ${process.env.NODE_ENV} at port ${port}`));
+App.listen(port, (): void =>
+  console.log(`Server is running for ${process.env.NODE_ENV} at port ${port}`),
+);
