@@ -1,8 +1,9 @@
 import { BadRequestException } from '@/exceptions/BadRequestException';
 import { Authenticate } from '@/middlewares/Authenticate';
 import { SupplierModel } from '@/modules/supplier/models/SupplierModel';
+import { SupplierResource } from '@/modules/supplier/resources/SupplierResource';
 import { SupplierService } from '@/modules/supplier/services/SupplierService';
-import { Body, Get, JsonController, Post, UseBefore } from 'routing-controllers';
+import { Body, Get, JsonController, Post, UseBefore, UseInterceptor } from 'routing-controllers';
 
 @JsonController('/supplier')
 @UseBefore(Authenticate)
@@ -21,6 +22,7 @@ export class SupplierController {
    * @returns {Promise<SupplierModel[]>}
    */
   @Get()
+  @UseInterceptor(SupplierResource)
   public async index(): Promise<SupplierModel[]> {
     try {
       return await this.supplier.getAllSupplier();
