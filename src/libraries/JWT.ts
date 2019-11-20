@@ -11,21 +11,21 @@ export class JWT {
    *
    * @type {string}
    */
-  private static privateKeyFile: string = path.join(__dirname, '..', 'storage', 'id_rsa');
+  private privateKeyFile: string = path.join(__dirname, '..', 'storage', 'id_rsa');
 
   /**
    * Public key file
    *
    * @type {string}
    */
-  private static publicKeyFile: string = path.join(__dirname, '..', 'storage', 'id_rsa.pub');
+  private publicKeyFile: string = path.join(__dirname, '..', 'storage', 'id_rsa.pub');
 
   /**
    * Hash algorithm
    *
    * @type {string}
    */
-  private static get algorithm(): string {
+  private get algorithm(): string {
     return process.env.HASH_ALGORITHM as string;
   }
 
@@ -34,7 +34,7 @@ export class JWT {
    *
    * @type {string}
    */
-  private static get expiresIn(): string {
+  private get expiresIn(): string {
     return process.env.EXPIRE_TIME as string;
   }
 
@@ -43,7 +43,7 @@ export class JWT {
    *
    * @returns {string}
    */
-  private static get privateKey(): string {
+  private get privateKey(): string {
     return fs.readFileSync(this.privateKeyFile, 'utf8');
   }
 
@@ -52,7 +52,7 @@ export class JWT {
    *
    * @returns {string}
    */
-  public static get publicKey(): string {
+  public get publicKey(): string {
     return fs.readFileSync(this.publicKeyFile, 'utf8');
   }
 
@@ -62,7 +62,7 @@ export class JWT {
    * @param {T} payload
    * @returns {string}
    */
-  public static sign<T extends string | Record<string, any>>(payload: T): string {
+  public sign<T extends string | Record<string, any>>(payload: T): string {
     return jwt.sign(payload, this.privateKey, {
       algorithm: this.algorithm,
       expiresIn: this.expiresIn,
@@ -75,7 +75,7 @@ export class JWT {
    * @param {string} token
    * @returns {object | string}
    */
-  public static verify(token: string): object | string {
+  public verify(token: string): object | string {
     return jwt.verify(token, this.publicKey, { algorithms: [this.algorithm] });
   }
 
@@ -85,7 +85,7 @@ export class JWT {
    * @param {string} token
    * @returns {Credentials<UserModel>}
    */
-  public static decode(token: string): Credentials<UserModel> {
+  public decode(token: string): Credentials<UserModel> {
     const credentials = jwt.decode(token, { complete: true }) as Credentials<UserModel>;
     if (!credentials) {
       throw new UnauthorizedException('Invalid token');

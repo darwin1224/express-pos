@@ -7,7 +7,7 @@ export class Bcrypt {
    *
    * @type {string}
    */
-  private static get salt(): number {
+  private get salt(): number {
     return Number(process.env.SALT_ROUND);
   }
 
@@ -17,11 +17,11 @@ export class Bcrypt {
    * @param {string} password
    * @returns {string}
    */
-  public static hash(password: string): string {
-    // if (!password.length) {
-    //   throw new HashException('Password should not be empty');
-    // }
-    return bcrypt.hashSync('123466', 10);
+  public hash(password: string): string {
+    if (!password.length) {
+      throw new HashException('Password should not be empty');
+    }
+    return bcrypt.hashSync(password, this.salt);
   }
 
   /**
@@ -31,7 +31,7 @@ export class Bcrypt {
    * @param {string} passwordEncrypted
    * @returns {boolean}
    */
-  public static compare(password: string, passwordEncrypted: string): boolean {
+  public compare(password: string, passwordEncrypted: string): boolean {
     return bcrypt.compareSync(password, passwordEncrypted);
   }
 }
