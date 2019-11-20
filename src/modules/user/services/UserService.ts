@@ -35,9 +35,13 @@ export class UserService {
    * Get data by username
    *
    * @param {string}
-   * @returns {Promise<UserModel>}
+   * @returns {Promise<UserModel | undefined>}
    */
-  public getUserByUsername(username: string): Promise<UserModel> {
-    return this.user.findOneOrFail({ username });
+  public getUserByUsername(username: string): Promise<UserModel | undefined> {
+    return this.user
+      .createQueryBuilder('user')
+      .innerJoinAndSelect('user.id_role_user', 'role_user')
+      .where('user.username = :username', { username })
+      .getOne();
   }
 }

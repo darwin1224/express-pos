@@ -1,5 +1,6 @@
-import { IsNotEmpty, IsString, Length } from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { IsNotEmpty, IsString, Length, IsNumber } from 'class-validator';
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
+import { RoleUserModel } from '@/modules/role_user/models/RoleUserModel';
 
 @Entity('tbl_user')
 export class UserModel {
@@ -40,4 +41,13 @@ export class UserModel {
   @IsString()
   @Length(4)
   public readonly password!: string;
+
+  /**
+   * ID role user
+   *
+   * @type {number}
+   */
+  @ManyToOne(type => RoleUserModel, { nullable: true, onUpdate: 'CASCADE', onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'id_role_user' })
+  public readonly id_role_user?: number;
 }
