@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsString, Length } from 'class-validator';
+import { IsNotEmpty, IsString, Length } from 'class-validator';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('tbl_supplier')
@@ -9,7 +9,6 @@ export class SupplierModel {
    * @type {number}
    */
   @PrimaryGeneratedColumn({ unsigned: true })
-  @IsNumber()
   public readonly supplier_id?: number;
 
   /**

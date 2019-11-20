@@ -3,14 +3,17 @@ import { ForbiddenException } from '@/exceptions/ForbiddenException';
 import { NotFoundException } from '@/exceptions/NotFoundException';
 import { UnauthorizedException } from '@/exceptions/UnauthorizedException';
 import { NextFunction, Request, Response } from 'express';
-import { ExpressErrorMiddlewareInterface, Middleware } from 'routing-controllers';
+import { ExpressErrorMiddlewareInterface, Middleware, BadRequestError } from 'routing-controllers';
 
 @Middleware({ type: 'after' })
 export class ErrorHandler implements ExpressErrorMiddlewareInterface {
   /**
    * Handle the incoming request
    *
-   * @param {err: any, req: Request, res: Response, next: NextFunction} options
+   * @param {any} err
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
    * @returns {void}
    */
   public error(err: any, req: Request, res: Response, next: NextFunction): void {
@@ -45,9 +48,9 @@ export class ErrorHandler implements ExpressErrorMiddlewareInterface {
         res.status(403);
         this.toJson(err, res, 'Forbidden access');
         break;
-      default:
-        res.status(400);
-        this.toJson(err, res);
+      case err instanceof BadRequestError:
+        res.json(err);
+        break;
     }
   }
 

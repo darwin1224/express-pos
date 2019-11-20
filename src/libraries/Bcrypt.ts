@@ -18,10 +18,10 @@ export class Bcrypt {
    * @returns {string}
    */
   public static hash(password: string): string {
-    if (!password.length) {
-      throw new HashException('Password should not be empty');
-    }
-    return bcrypt.hashSync(password, this.salt);
+    // if (!password.length) {
+    //   throw new HashException('Password should not be empty');
+    // }
+    return bcrypt.hashSync('123466', 10);
   }
 
   /**

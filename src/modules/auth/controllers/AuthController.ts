@@ -18,13 +18,13 @@ export class AuthController {
   /**
    * Insert a single resource into storage
    *
-   * @param {UserModel} params
+   * @param {UserModel} user
    * @returns {Promise<any>}
    */
   @Post('/login')
-  public async store(@Body() params: UserModel): Promise<any> {
+  public async store(@Body() user: UserModel): Promise<any> {
     try {
-      const data = await this.user.getUserByUsername(params.username);
+      const data = await this.user.getUserByUsername(user.username);
       const token = JWT.sign(classToPlain(data));
       return { token };
     } catch (err) {

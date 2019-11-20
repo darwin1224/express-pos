@@ -1,3 +1,4 @@
+import { IsNotEmpty, IsString, Length } from 'class-validator';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('tbl_user')
@@ -24,6 +25,9 @@ export class UserModel {
    * @type {string}
    */
   @Column({ type: 'varchar', length: 100 })
+  @IsNotEmpty()
+  @IsString()
+  @Length(4, 100)
   public readonly username!: string;
 
   /**
@@ -32,5 +36,8 @@ export class UserModel {
    * @type {string}
    */
   @Column({ type: 'text' })
+  @IsNotEmpty()
+  @IsString()
+  @Length(4)
   public readonly password!: string;
 }
