@@ -22,7 +22,9 @@ export class IncomingStockService {
    * @returns {Promise<IncomingStockModel[]>}
    */
   public getAllIncomingStock(): Promise<IncomingStockModel[]> {
-    return this.incomingStock.find();
+    return this.incomingStock.find({
+      relations: ['product_id', 'supplier_id'],
+    });
   }
 
   /**
