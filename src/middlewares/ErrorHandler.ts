@@ -51,6 +51,10 @@ export class ErrorHandler implements ExpressErrorMiddlewareInterface {
       case err instanceof BadRequestError:
         res.json(err);
         break;
+      default:
+        res.status(500);
+        this.toJson(err, res);
+        break;
     }
   }
 
@@ -65,7 +69,8 @@ export class ErrorHandler implements ExpressErrorMiddlewareInterface {
   private toJson(err: Error, res: Response, message?: string): void {
     res.json({
       name: err.name || 'Error',
-      message: (process.env.NODE_ENV === 'production' ? message : err.message) || 'Something went wrong',
+      message:
+        (process.env.NODE_ENV === 'production' ? message : err.message) || 'Something went wrong',
     });
   }
 }
