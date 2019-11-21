@@ -40,7 +40,7 @@ export class UserService {
   public getUserByUsername(username: string): Promise<UserModel | undefined> {
     return this.user
       .createQueryBuilder('user')
-      .innerJoinAndSelect('user.id_role_user', 'role_user')
+      .innerJoinAndSelect('user.role_user_id', 'role_user')
       .where('user.username = :username', { username })
       .getOne();
   }

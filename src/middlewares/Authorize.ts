@@ -14,11 +14,11 @@ export class Authorize {
     try {
       const authorizationHeader = process.env.AUTHORIZATION_HEADER_NAME as string;
       const { payload } = new JWT().decode(request.header(authorizationHeader) as string) as any;
-      if (!roles.length || !payload.id_role_user.role_user_name) {
+      if (!roles.length || !payload.role_user_id.role_user_name) {
         throw new ForbiddenException(`You don't have any role to access`);
       }
       roles = roles.map(providedRole => providedRole.toLowerCase());
-      if (!roles.includes(payload.id_role_user.role_user_name.toLowerCase())) {
+      if (!roles.includes(payload.role_user_id.role_user_name.toLowerCase())) {
         throw new ForbiddenException('You are not allowed to access this route');
       }
       return true;
