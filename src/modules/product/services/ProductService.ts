@@ -63,4 +63,18 @@ export class ProductService {
   public deleteProduct(id: number): Promise<DeleteResult> {
     return this.product.delete(id);
   }
+
+  /**
+   * Update stock product by id
+   *
+   * @param {number} id
+   * @param {number} product_stock
+   * @returns {Promise<UpdateResult>}
+   */
+  public updateStockProductById(id: number, product_stock: number): Promise<UpdateResult> {
+    return this.product.query(
+      'UPDATE tbl_product SET product_stock = product_stock + ? WHERE product_id = ?',
+      [product_stock, id],
+    );
+  }
 }

@@ -12,6 +12,7 @@ import {
   UseBefore,
   UseInterceptor,
 } from 'routing-controllers';
+import { ProductService } from '@/modules/product/services/ProductService';
 
 @JsonController('/incoming_stock')
 @UseBefore(Authenticate)
@@ -21,9 +22,13 @@ export class IncomingStockController {
    * Constructor
    *
    * @param {IncomingStockService} incomingStock
+   * @param {ProductService} product
    * @returns {void}
    */
-  public constructor(private readonly incomingStock: IncomingStockService) {}
+  public constructor(
+    private readonly incomingStock: IncomingStockService,
+    private readonly product: ProductService,
+  ) {}
 
   /**
    * Get all resource in storage
@@ -49,7 +54,9 @@ export class IncomingStockController {
   @Post()
   public async store(@Body() incomingStock: IncomingStockModel): Promise<IncomingStockModel> {
     try {
-      return await this.incomingStock.insertIncomingStock(incomingStock);
+      const store = await this.incomingStock.insertIncomingStock(incomingStock);
+      await this.product.updateStockProductById(store.product_id, store.incoming_stock_added);
+      return store;
     } catch (err) {
       throw new BadRequestException(err.message);
     }
