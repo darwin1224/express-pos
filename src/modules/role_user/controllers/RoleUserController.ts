@@ -43,13 +43,13 @@ export class RoleUserController {
   /**
    * Insert a single resource into storage
    *
-   * @param {RoleUserModel} params
+   * @param {RoleUserModel} roleUser
    * @returns {Promise<RoleUserModel>}
    */
   @Post()
-  public async store(@Body() params: RoleUserModel): Promise<RoleUserModel> {
+  public async store(@Body() roleUser: RoleUserModel): Promise<RoleUserModel> {
     try {
-      return await this.roleUser.insertRoleUser(params);
+      return await this.roleUser.insertRoleUser(roleUser);
     } catch (err) {
       throw new BadRequestException(err.message);
     }
