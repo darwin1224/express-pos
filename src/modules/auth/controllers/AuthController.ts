@@ -2,7 +2,7 @@ import { UnauthorizedException } from '@/exceptions/UnauthorizedException';
 import { Bcrypt } from '@/libraries/Bcrypt';
 import { JWT } from '@/libraries/JWT';
 import { Authenticate } from '@/middlewares/Authenticate';
-import { UserModel } from '@/modules/user/models/UserModel';
+import { LoginRequest } from '@/modules/auth/requests/LoginRequest';
 import { UserService } from '@/modules/user/services/UserService';
 import { classToPlain } from 'class-transformer';
 import { Body, Get, JsonController, Param, Post, UseBefore } from 'routing-controllers';
@@ -26,11 +26,11 @@ export class AuthController {
   /**
    * Insert a single resource into storage
    *
-   * @param {UserModel} user
+   * @param {LoginRequest} user
    * @returns {Promise<{ token: string }>}
    */
   @Post('/login')
-  public async login(@Body() user: UserModel): Promise<{ token: string }> {
+  public async login(@Body() user: LoginRequest): Promise<{ token: string }> {
     try {
       const data = await this.user.getUserByUsername(user.username);
       if (!data || !this.bcrypt.compare(user.password, data.password)) {
