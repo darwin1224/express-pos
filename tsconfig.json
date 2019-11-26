@@ -6,7 +6,7 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "outDir": "./dist",
-    "strict": true,
+    "strict": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
@@ -26,8 +26,9 @@
       "typeorm-typedi-extensions",
       "dotenv",
       "node",
-      "express"
+      "express",
+      "jest"
     ]
   },
-  "include": ["./src/**/*.ts"]
+  "include": ["./src/**/*.ts", "./tests/**/*.spec.ts"]
 }
