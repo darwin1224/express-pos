@@ -10,7 +10,8 @@
     "lint": "eslint --ext .ts,.js --ignore-path .eslintignore .",
     "lint:fix": "eslint --ext .ts,.js --ignore-path .eslintignore --fix .",
     "test": "jest",
-    "test:e2e": "jest ./tests/e2e/**/*.spec.ts"
+    "test:e2e": "jest ./tests/e2e/**/*.spec.ts",
+    "test:integration": "jest ./tests/integration/**/*.spec.ts"
   },
   "keywords": [
     "point of sale",
