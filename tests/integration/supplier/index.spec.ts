@@ -1,6 +1,6 @@
-import { createConnection, Connection, getRepository } from 'typeorm';
 import { SupplierModel } from '@/modules/supplier/models/SupplierModel';
 import { SupplierService } from '@/modules/supplier/services/SupplierService';
+import { Connection, createConnection, getRepository } from 'typeorm';
 
 describe('Supplier service integration tests', () => {
   let connection: Connection;
@@ -24,8 +24,8 @@ describe('Supplier service integration tests', () => {
     });
 
     it('should return correct supplier columns', async () => {
-      data.map(supplier => {
-        expect(Object.keys(supplier)).toEqual(['supplier_id', 'supplier_name']);
+      data.map(item => {
+        expect(Object.keys(item)).toEqual(['supplier_id', 'supplier_name']);
       });
     });
   });
