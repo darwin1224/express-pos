@@ -1,24 +1,52 @@
 import { SupplierController } from '@/modules/supplier/controllers/SupplierController';
-import { SupplierService } from '@/modules/supplier/services/SupplierService';
 
-jest.mock('@/modules/supplier/services/SupplierService', () => ({
-  getAllSupplier: jest.fn(() => [{ supplier_id: 1, supplier_name: 'Darwin' }]),
-}));
+class SupplierServiceMock {
+  public getAllSupplier: jest.Mock = jest.fn();
+  public getSupplierById: jest.Mock = jest.fn();
+}
 
 describe('Supplier Controller unit tests', () => {
   let supplier: SupplierController;
-  let service: SupplierService;
+  let supplierServiceMock: SupplierServiceMock;
 
   beforeAll(() => {
-    service = new SupplierService(null as any);
-    supplier = new SupplierController(service);
+    supplierServiceMock = new SupplierServiceMock();
+    supplier = new SupplierController(supplierServiceMock as any);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   describe('index()', () => {
-    it('should return correct supplier columns', async () => {
-      const data = await supplier.index();
-      expect(service.getAllSupplier).toHaveBeenCalled();
-      expect(service.getAllSupplier).toEqual([{ supplier_id: 1, supplier_name: 'Darwin' }]);
+    beforeEach(async () => {
+      await supplier.index();
+    });
+
+    it('getAllSupplier() should have been called 1 time', () => {
+      expect(supplierServiceMock.getAllSupplier).toHaveBeenCalledTimes(1);
+    });
+
+    it('getAllSupplier() should have 1 returned time', () => {
+      expect(supplierServiceMock.getAllSupplier).toHaveReturnedTimes(1);
+    });
+  });
+
+  describe('show()', () => {
+    beforeEach(async () => {
+      await supplier.show(1);
+    });
+
+    it('getSupplierById() should have been called 1 time', () => {
+      expect(supplierServiceMock.getSupplierById).toHaveBeenCalledTimes(1);
+    });
+
+    it('getSupplierById() should be called with "1" argument', () => {
+      expect(supplierServiceMock.getSupplierById).toBeCalledWith(1);
+    });
+
+    it('getSupplierById() should have 1 returned time', () => {
+      expect(supplierServiceMock.getSupplierById).toHaveReturnedTimes(1);
     });
   });
 });
